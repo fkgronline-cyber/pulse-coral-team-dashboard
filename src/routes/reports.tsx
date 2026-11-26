@@ -51,7 +51,7 @@ function Reports() {
 
       <div className="mt-4 flex gap-1 rounded-2xl bg-muted p-1">
         {periods.map((p, i) => (
-          <button key={p} onClick={() => setPeriod(i)} className={`flex-1 rounded-xl py-2 text-sm font-semibold transition ${i === period ? "bg-ink text-ink-foreground shadow-pop" : "text-muted-foreground"}`}>{p}</button>
+          <button key={p} onClick={() => setPeriod(i)} className={`flex-1 rounded-xl py-2 text-sm font-semibold transition ${i === period ? "bg-sunrise text-primary-foreground shadow-pop" : "text-muted-foreground"}`}>{p}</button>
         ))}
       </div>
 

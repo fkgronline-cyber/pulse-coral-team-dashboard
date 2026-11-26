@@ -46,14 +46,14 @@ function Home() {
           </span>
           <span className="rounded-full bg-lime/15 px-2.5 py-1 text-xs font-semibold text-lime">▲ 18%</span>
         </div>
-        <p dir="ltr" className="font-display tabular mt-3 text-right text-4xl font-bold">2,612,146<span className="text-xl opacity-60">.80 ر.س</span></p>
+        <p className="font-display tabular mt-3 text-4xl font-bold"><span dir="ltr">2,612,146<span className="text-xl opacity-60">.80</span></span> <span className="text-xl opacity-60">ر.س</span></p>
         <svg viewBox="0 0 100 32" className="mt-4 h-16 w-full" preserveAspectRatio="none">
           <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--primary)" stopOpacity=".5" /><stop offset="1" stopColor="var(--primary)" stopOpacity="0" /></linearGradient></defs>
           <path d={`M0,32 ${spark.map((v, i) => `L${(i / (spark.length - 1)) * 100},${32 - (v / max) * 28}`).join(" ")} L100,32 Z`} fill="url(#g)" />
           <path d={spark.map((v, i) => `${i ? "L" : "M"}${(i / (spark.length - 1)) * 100},${32 - (v / max) * 28}`).join(" ")} fill="none" stroke="var(--primary)" strokeWidth="1.2" vectorEffect="non-scaling-stroke" style={{ strokeWidth: 2.5 }} />
         </svg>
         <div className="mt-4 grid grid-cols-2 gap-2">
-          <button className="flex items-center justify-center gap-2 rounded-2xl bg-primary py-3 font-semibold text-primary-foreground transition active:scale-95"><Plus className="size-4" />مستخلص جديد</button>
+          <button className="flex items-center justify-center gap-2 rounded-2xl bg-sunrise py-3 font-semibold text-primary-foreground transition active:scale-95"><Plus className="size-4" />مستخلص جديد</button>
           <Link to="/reports" className="flex items-center justify-center gap-2 rounded-2xl bg-ink-foreground/10 py-3 font-semibold transition active:scale-95"><ArrowUpLeft className="size-4" />التقارير</Link>
         </div>
       </article>
