@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Search, FilePlus2, Boxes, ChevronLeft, MoveHorizontal } from "lucide-react";
@@ -33,45 +34,45 @@ function Extracts() {
   const list = rows.filter((r) => r.n.includes(q));
   return (
     <AppShell title="المستخلصات" active="المستخلصات">
-      <section className="flex items-end justify-between gap-3 pt-6">
+      <section className="flex items-end justify-between gap-3 pt-4">
         <div className="min-w-0">
           <p className="text-sm text-muted-foreground">دفاتر المستخلصات</p>
-          <h1 className="font-display text-3xl font-bold">المستخلصات</h1>
+          <h1 className="font-display text-2xl font-bold">المستخلصات</h1>
         </div>
-        <button className="flex shrink-0 items-center gap-2 rounded-2xl bg-sunrise px-4 py-3 text-sm font-semibold text-primary-foreground shadow-pop transition active:scale-95"><FilePlus2 className="size-4" />مستخلص جديد</button>
+        <Button variant="ghost" className="flex shrink-0 items-center gap-2 rounded-lg bg-sunrise px-3 py-2 text-sm font-semibold text-ink-foreground shadow-sm transition active:scale-95"><FilePlus2 className="size-4" />مستخلص جديد</Button>
       </section>
 
       <div className="mt-4 grid grid-cols-3 gap-2">
         {[["المستخلصات", "4"], ["السطور", "221"], ["الوزن (طن)", "11,357"]].map(([k, v]) => (
-          <div key={k} className="rounded-2xl border border-border bg-card p-3 text-center">
+          <div key={k} className="rounded-lg border border-border bg-card p-3 text-center">
             <p className="text-xs text-muted-foreground">{k}</p>
             <p className="font-display tabular text-lg font-bold">{v}</p>
           </div>
         ))}
       </div>
 
-      <label className="mt-4 flex items-center gap-2 rounded-2xl border border-border bg-card px-4 py-3 focus-within:ring-2 focus-within:ring-ring">
+      <label className="mt-4 flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2.5 focus-within:ring-2 focus-within:ring-ring">
         <Search className="size-5 text-muted-foreground" />
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="ابحث باسم المستخلص أو الشركة" className="w-full bg-transparent outline-none placeholder:text-muted-foreground" />
       </label>
 
       {/* جدول واحد لكل المقاسات: يُسحب أفقياً على الجوال */}
-      <div className="mt-4 overflow-hidden rounded-3xl border border-border bg-card">
+      <div className="mt-4 overflow-hidden rounded-lg border border-border bg-card">
         <div className="flex items-center justify-center gap-2 border-b border-border bg-muted/60 py-2 text-xs text-muted-foreground md:hidden">
           <MoveHorizontal className="size-4" />اسحب الجدول أفقياً لعرض كل الأعمدة
         </div>
-        <div className="overflow-x-auto">
+        <div className="relative isolate overflow-x-auto">
           <table className="w-full min-w-[680px] text-sm">
-            <thead className="bg-banner text-primary-foreground">
+            <thead className="bg-banner-solid text-ink-foreground">
               <tr className="text-right">
-                <th className="sticky right-0 z-20 whitespace-nowrap border-l border-primary-foreground/20 bg-banner-solid px-4 py-3 font-semibold">اسم المستخلص</th>
+                <th className="sticky right-0 z-20 whitespace-nowrap border-l border-ink-foreground/20 bg-banner-solid px-4 py-3 font-semibold">اسم المستخلص</th>
                 {["تاريخ الإقفال", "السطور", "الوزن (طن)", "قبل الضريبة", "الحالة", ""].map((h) => <th key={h} className="whitespace-nowrap px-4 py-3 font-semibold">{h}</th>)}
               </tr>
             </thead>
             <tbody>
               {list.map((r) => (
                 <tr key={r.n} className="border-t border-border transition hover:bg-muted">
-                  <td className="sticky right-0 z-10 whitespace-nowrap border-l border-border bg-card px-4 py-4 font-semibold"><Link to="/extracts/$id" params={{ id: r.n }} className="text-primary underline-offset-4 hover:underline">{r.n}</Link></td>
+                  <td className="sticky right-0 z-10 whitespace-nowrap border-l border-border bg-card px-3 py-2.5 font-semibold"><Link to="/extracts/$id" params={{ id: r.n }} className="text-primary underline-offset-4 hover:underline">{r.n}</Link></td>
                   <td className="tabular whitespace-nowrap px-4 text-muted-foreground">{r.d}</td>
                   <td className="tabular px-4">{r.lines}</td>
                   <td className="tabular whitespace-nowrap px-4">{r.w}</td>
@@ -94,7 +95,7 @@ function Extracts() {
           </table>
         </div>
       </div>
-      {list.length === 0 && <p className="mt-8 text-center text-muted-foreground">لا توجد نتائج مطابقة</p>}
+      {list.length === 0 && <p className="mt-5 text-center text-muted-foreground">لا توجد نتائج مطابقة</p>}
     </AppShell>
   );
 }

@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Plus, ArrowUpLeft, FileText, Truck, Boxes, Scale, AlertTriangle, Upload, UserPlus, MoveHorizontal } from "lucide-react";
 import { AppShell, SectionTitle } from "@/components/AppShell";
@@ -37,12 +38,12 @@ function Home() {
   const max = Math.max(...spark);
   return (
     <AppShell title="نظرة عامة" active="الرئيسية">
-      <section className="animate-rise pt-6">
+      <section className="pt-4">
         <p className="text-sm text-muted-foreground">الخميس، 26 نوفمبر</p>
-        <h1 className="font-display mt-1 text-3xl font-bold">أهلاً أبو ضياء 👋</h1>
+        <h1 className="font-display mt-1 text-2xl font-bold">أهلاً أبو ضياء 👋</h1>
       </section>
 
-      <article className="animate-rise relative mt-5 overflow-hidden rounded-3xl bg-road p-6 text-ink-foreground">
+      <article className="relative mt-4 overflow-hidden rounded-lg bg-road p-4 text-ink-foreground">
         <div className="flex items-center justify-between">
           <span className="flex items-center gap-2 text-sm opacity-80">
             <span className="relative flex size-2"><span className="absolute size-2 rounded-full bg-lime animate-pulse-ring" /><span className="size-2 rounded-full bg-lime" /></span>
@@ -50,54 +51,54 @@ function Home() {
           </span>
           <span className="rounded-full bg-lime/15 px-2.5 py-1 text-xs font-semibold text-lime">▲ 18%</span>
         </div>
-        <p className="font-display tabular mt-3 text-4xl font-bold"><span dir="ltr">2,612,146<span className="text-xl opacity-60">.80</span></span> <span className="text-xl opacity-60">ر.س</span></p>
+        <p className="font-display tabular mt-3 text-3xl font-bold"><span dir="ltr">2,612,146<span className="text-xl opacity-60">.80</span></span> <span className="text-xl opacity-60">ر.س</span></p>
         <svg viewBox="0 0 100 32" className="mt-4 h-16 w-full" preserveAspectRatio="none">
           <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--primary)" stopOpacity=".5" /><stop offset="1" stopColor="var(--primary)" stopOpacity="0" /></linearGradient></defs>
           <path d={`M0,32 ${spark.map((v, i) => `L${(i / (spark.length - 1)) * 100},${32 - (v / max) * 28}`).join(" ")} L100,32 Z`} fill="url(#g)" />
           <path d={spark.map((v, i) => `${i ? "L" : "M"}${(i / (spark.length - 1)) * 100},${32 - (v / max) * 28}`).join(" ")} fill="none" stroke="var(--primary)" strokeWidth="1.2" vectorEffect="non-scaling-stroke" style={{ strokeWidth: 2.5 }} />
         </svg>
         <div className="mt-4 grid grid-cols-2 gap-2">
-          <button className="flex items-center justify-center gap-2 rounded-2xl bg-sunrise py-3 font-semibold text-primary-foreground transition active:scale-95"><Plus className="size-4" />مستخلص جديد</button>
-          <Link to="/reports" className="flex items-center justify-center gap-2 rounded-2xl bg-ink-foreground/10 py-3 font-semibold transition active:scale-95"><ArrowUpLeft className="size-4" />التقارير</Link>
+          <Button variant="ghost" className="flex h-10 items-center justify-center gap-2 rounded-lg bg-sunrise font-semibold text-ink-foreground hover:text-ink-foreground"><Plus className="size-4" />مستخلص جديد</Button>
+          <Link to="/reports" className="flex items-center justify-center gap-2 rounded-lg bg-ink-foreground/10 py-3 font-semibold transition active:scale-95"><ArrowUpLeft className="size-4" />التقارير</Link>
         </div>
       </article>
 
       <SectionTitle title="مؤشرات التشغيل" hint="محدّثة لحظة بلحظة" />
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {kpis.map(({ label, value, sub, Icon }, i) => (
-          <div key={label} className="animate-rise rounded-3xl border border-border bg-card p-4" style={{ animationDelay: `${i * 60}ms` }}>
-            <span className="grid size-9 place-items-center rounded-xl bg-accent text-accent-foreground"><Icon className="size-4" /></span>
-            <p className="mt-3 text-sm text-muted-foreground">{label}</p>
+        {kpis.map(({ label, value, sub, Icon }) => (
+          <div key={label} className="rounded-lg border border-border bg-card p-3 text-card-foreground">
+            <span className="grid size-9 place-items-center rounded-md bg-accent text-accent-foreground"><Icon className="size-4" /></span>
+            <p className="mt-2 text-sm text-muted-foreground">{label}</p>
             <p className="font-display tabular text-2xl font-bold">{value}</p>
             <p className="text-xs text-secondary">{sub}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-4 grid gap-3 rounded-3xl border border-border bg-card p-5 sm:grid-cols-3">
+      <div className="mt-4 grid gap-3 border-y border-border py-3 sm:grid-cols-3">
         <div><p className="text-xs text-muted-foreground">اتجاه العمل</p><p className="font-display text-lg font-bold">هذا الشهر مقارنة بالسابق</p></div>
-        <div className="rounded-2xl bg-muted p-3"><p className="text-xs text-muted-foreground">هذا الشهر</p><p className="font-display tabular text-xl font-bold">2.61M <span className="text-xs text-secondary">▲ 18%</span></p></div>
-        <div className="rounded-2xl bg-muted p-3"><p className="text-xs text-muted-foreground">الشهر السابق</p><p className="font-display tabular text-xl font-bold">2.21M</p></div>
+        <div className="rounded-lg bg-muted p-3"><p className="text-xs text-muted-foreground">هذا الشهر</p><p className="font-display tabular text-xl font-bold">2.61M <span className="text-xs text-secondary">▲ 18%</span></p></div>
+        <div className="rounded-lg bg-muted p-3"><p className="text-xs text-muted-foreground">الشهر السابق</p><p className="font-display tabular text-xl font-bold">2.21M</p></div>
       </div>
 
       <SectionTitle title="وصول سريع" hint="أهم الأدوات بنقرة" />
-      <div className="grid grid-cols-4 gap-3">
+      <div className="grid grid-cols-4 gap-2">
         {[["مستخلص", Plus], ["ناقل جديد", UserPlus], ["رفع ملف", Upload], ["مخالفة", AlertTriangle]].map(([l, I]) => {
           const Icon = I as typeof Plus;
           return (
-            <button key={l as string} className="flex flex-col items-center gap-2 rounded-3xl border border-border bg-card py-4 text-xs font-semibold transition hover:-translate-y-0.5 hover:shadow-pop">
-              <span className="grid size-11 place-items-center rounded-2xl bg-sunrise text-primary-foreground"><Icon className="size-5" /></span>{l as string}
-            </button>
+            <Button variant="ghost" key={l as string} className="flex h-auto min-h-20 flex-col items-center gap-2 whitespace-normal rounded-lg border border-border bg-card px-2 py-3 text-xs font-semibold hover:bg-muted">
+              <span className="grid size-9 place-items-center rounded-lg bg-sunrise text-ink-foreground"><Icon className="size-5" /></span>{l as string}
+            </Button>
           );
         })}
       </div>
 
       <SectionTitle title="آخر المستخلصات" action={<Link to="/extracts" className="text-sm font-semibold text-accent-foreground">عرض الكل</Link>} />
-      <div className="overflow-hidden rounded-3xl border border-border bg-card">
+      <div className="overflow-hidden rounded-lg border border-border bg-card">
         <div className="flex items-center justify-center gap-2 border-b border-border bg-muted/60 py-2 text-xs text-muted-foreground sm:hidden">
           <MoveHorizontal className="size-4" />اسحب الجدول أفقياً
         </div>
-        <div className="overflow-x-auto">
+        <div className="relative isolate overflow-x-auto">
           <table className="w-full min-w-[520px] text-sm">
             <thead className="bg-muted text-xs text-muted-foreground">
               <tr className="text-right">
@@ -108,8 +109,8 @@ function Home() {
             <tbody>
               {extracts.map((e) => (
                 <tr key={e.name} className="border-t border-border transition hover:bg-muted">
-                  <td className="sticky right-0 z-10 flex items-center gap-3 border-l border-border bg-card px-4 py-4 font-semibold">
-                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-muted"><Boxes className="size-4" /></span>
+                  <td className="sticky right-0 z-10 flex items-center gap-3 border-l border-border bg-card px-4 py-3 font-semibold">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-md bg-muted"><Boxes className="size-4" /></span>
                     <span className="whitespace-nowrap">{e.name}</span>
                   </td>
                   <td className="tabular px-4">{e.trips}</td>

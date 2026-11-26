@@ -31,3 +31,4 @@ use the editor.
 
 - Keep `/reports` as the report directory and each report type in an un-nested leaf route, so the comprehensive report remains distinct from the other report views.
 - Share the presentation-only report layout across specialized report pages; label reference records as demo data until real data is connected.
+- Render horizontally scrollable tables with separated borders and isolated scroll containers; collapsed borders can cause sticky RTL cells to disappear during painting.

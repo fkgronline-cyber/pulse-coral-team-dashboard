@@ -24,12 +24,16 @@ const types = [
 
 function Reports() {
   return <AppShell title="التقارير" active="تقارير">
-    <section className="pt-7"><p className="text-sm text-muted-foreground">تقارير التشغيل</p><h1 className="mt-1 font-display text-3xl font-bold">التقارير</h1></section>
-    <div className="mt-6 grid gap-4 md:grid-cols-2">
-      {types.map(({ to, title, sub, Icon }, index) => <article key={to} className={`flex min-w-0 flex-col rounded-lg border p-5 ${index === 3 ? "border-primary/30 bg-banner text-primary-foreground" : "border-border bg-card"}`}>
-        <div className="flex items-center justify-between"><span className={`grid size-12 place-items-center rounded-lg ${index === 3 ? "bg-primary-foreground/15" : "bg-accent text-accent-foreground"}`}><Icon className="size-6" /></span><span className="text-xs opacity-60">0{index + 1}</span></div>
-        <h2 className="mt-4 font-display text-lg font-semibold">{title}</h2><p className={`mt-2 text-sm ${index === 3 ? "opacity-80" : "text-muted-foreground"}`}>{sub}</p>
-        <Button asChild variant="ghost" className={`mt-4 w-full justify-between ${index === 3 ? "hover:bg-primary-foreground/15 hover:text-primary-foreground" : "text-accent-foreground"}`}><Link to={to}>{index === 3 ? "عرض التقرير الشامل" : "عرض التقرير"}<ArrowLeft /></Link></Button>
+    <section className="pt-4"><p className="text-xs text-muted-foreground">تقارير التشغيل</p><h1 className="mt-1 font-display text-2xl font-bold">التقارير</h1></section>
+    <div className="mt-4 grid gap-2.5 md:grid-cols-2">
+      {types.map(({ to, title, sub, Icon }, index) => <article key={to} className="min-w-0">
+        <Button asChild variant="ghost" className={`h-auto w-full justify-start gap-3 whitespace-normal rounded-lg border p-3 text-right ${index === 3 ? "border-accent-foreground/25 bg-accent text-accent-foreground hover:bg-accent" : "border-border bg-card text-card-foreground hover:bg-muted"}`}>
+          <Link to={to}>
+            <span className={`grid size-10 shrink-0 place-items-center rounded-lg ${index === 3 ? "bg-banner-solid text-ink-foreground" : "bg-accent text-accent-foreground"}`}><Icon className="size-5" /></span>
+            <span className="min-w-0 flex-1"><h2 className="font-display text-sm font-semibold leading-6">{title}</h2><p className="mt-0.5 text-xs font-normal leading-5 text-muted-foreground">{sub}</p></span>
+            <ArrowLeft className="shrink-0 text-accent-foreground" />
+          </Link>
+        </Button>
       </article>)}
     </div>
   </AppShell>;

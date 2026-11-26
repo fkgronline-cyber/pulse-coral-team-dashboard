@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { TrendingUp, TrendingDown, Download, ShieldCheck, Plus, Pencil, Trash2, RotateCcw, CheckCircle2, MoveHorizontal } from "lucide-react";
@@ -51,38 +52,38 @@ function Reports() {
   const max = carriers[0]?.v ?? 1;
   return (
     <AppShell title="التقارير" active="تقارير">
-      <section className="animate-rise pt-6">
+      <section className="pt-4">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary/15 px-3 py-1 text-xs font-semibold text-secondary"><ShieldCheck className="size-3.5" />تقرير إداري موثّق</span>
-        <h1 className="font-display mt-2 text-3xl font-bold">الأداء التشغيلي</h1>
+        <h1 className="font-display mt-2 text-2xl font-bold">الأداء التشغيلي</h1>
         <p className="text-sm text-muted-foreground">1 – 26 نوفمبر 2026 · مقارنة بأكتوبر</p>
       </section>
 
-      <div className="mt-4 flex gap-1 rounded-2xl bg-muted p-1">
+      <div className="mt-4 flex gap-1 rounded-lg bg-muted p-1">
         {periods.map((p, i) => (
-          <button key={p} onClick={() => setPeriod(i)} className={`flex-1 rounded-xl py-2 text-sm font-semibold transition ${i === period ? "bg-sunrise text-primary-foreground shadow-pop" : "text-muted-foreground"}`}>{p}</button>
+          <Button variant="ghost" key={p} onClick={() => setPeriod(i)} className={`flex-1 rounded-md py-2 text-sm font-semibold transition ${i === period ? "bg-sunrise text-ink-foreground shadow-sm" : "text-muted-foreground"}`}>{p}</Button>
         ))}
       </div>
 
       <SectionTitle title="الخلاصة" hint="أهم ما تغيّر في هذه الفترة" />
       <div className="grid grid-cols-2 gap-3">
         {insights.map((x, i) => (
-          <div key={x.label} className={`animate-rise rounded-3xl p-4 ${i === 0 ? "col-span-2 bg-road text-ink-foreground" : "border border-border bg-card"}`} style={{ animationDelay: `${i * 60}ms` }}>
+          <div key={x.label} className={`rounded-lg p-4 ${i === 0 ? "col-span-2 bg-road text-ink-foreground" : "border border-border bg-card"}`}>
             <div className="flex items-center justify-between">
               <p className={`text-sm ${i === 0 ? "opacity-80" : "text-muted-foreground"}`}>{x.label}</p>
               <span className={`flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${x.up ? "bg-lime/15 text-secondary" : "bg-destructive/10 text-destructive"} ${i === 0 ? "text-lime" : ""}`}>
                 {x.up ? <TrendingUp className="size-3" /> : <TrendingDown className="size-3" />}{x.delta}
               </span>
             </div>
-            <p className={`font-display tabular mt-2 font-bold ${i === 0 ? "text-4xl" : "text-2xl"}`}>{x.value}<span className="text-sm opacity-60"> ر.س</span></p>
+            <p className={`font-display tabular mt-2 font-bold ${i === 0 ? "text-3xl" : "text-2xl"}`}>{x.value}<span className="text-sm opacity-60"> ر.س</span></p>
           </div>
         ))}
       </div>
 
       <SectionTitle title="أعلى الناقلين" hint="حسب قيمة الرحلات" />
-      <div className="space-y-3 rounded-3xl border border-border bg-card p-5">
+      <div className="space-y-3 border-y border-border py-3">
         {carriers.map((c, i) => (
           <div key={c.n}>
-            <div className="mb-1.5 flex items-center justify-between text-sm">
+            <div className="mb-1.5 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-sm">
               <span className="flex items-center gap-2 font-semibold"><span className="grid size-6 place-items-center rounded-lg bg-muted text-xs">{i + 1}</span>{c.n}</span>
               <span className="tabular text-muted-foreground">{c.v.toLocaleString("en")} ر.س · {c.t} رحلات</span>
             </div>
@@ -93,23 +94,23 @@ function Reports() {
         ))}
       </div>
 
-      <SectionTitle title="المستخلصات" hint="4 مستخلصات · 221 سطر" action={<button className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm font-semibold"><Download className="size-4" />PDF</button>} />
-      <div className="overflow-hidden rounded-3xl border border-border bg-card">
+      <SectionTitle title="المستخلصات" hint="4 مستخلصات · 221 سطر" action={<Button variant="ghost" className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm font-semibold"><Download className="size-4" />PDF</Button>} />
+      <div className="overflow-hidden rounded-lg border border-border bg-card">
         <div className="flex items-center justify-center gap-2 border-b border-border bg-muted py-2 text-xs text-muted-foreground md:hidden">
           <MoveHorizontal className="size-4" />اسحب الجدول أفقياً لعرض كل الأعمدة
         </div>
-        <div className="overflow-x-auto">
+        <div className="relative isolate overflow-x-auto">
           <table className="w-full min-w-[640px] text-sm">
-            <thead className="bg-banner text-primary-foreground">
+            <thead className="bg-banner-solid text-ink-foreground">
               <tr className="text-right">
-                <th className="sticky right-0 z-20 whitespace-nowrap border-l border-primary-foreground/20 bg-banner-solid px-4 py-3 font-semibold">المستخلص</th>
+                <th className="sticky right-0 z-20 whitespace-nowrap border-l border-ink-foreground/20 bg-banner-solid px-4 py-3 font-semibold">المستخلص</th>
                 {["التاريخ", "السطور", "الكمية", "الوزن (طن)", "القيمة"].map((h) => <th key={h} className="whitespace-nowrap px-4 py-3 font-semibold">{h}</th>)}
               </tr>
             </thead>
             <tbody>
               {extracts.map((e) => (
                 <tr key={e.n} className="border-t border-border transition hover:bg-muted">
-                  <td className="sticky right-0 z-10 whitespace-nowrap border-l border-border bg-card px-4 py-4 font-semibold">{e.n}</td>
+                  <td className="sticky right-0 z-10 whitespace-nowrap border-l border-border bg-card px-4 py-3 font-semibold">{e.n}</td>
                   <td className="tabular whitespace-nowrap px-4 text-muted-foreground">{e.d}</td>
                   <td className="tabular px-4">{e.lines}</td>
                   <td className="tabular px-4">{e.qty}</td>
@@ -130,17 +131,17 @@ function Reports() {
       </div>
 
       <SectionTitle title="سجل النشاط" hint="2 إضافة · 2 تعديل · 2 حذف · 1 استعادة" />
-      <ol className="relative space-y-3 rounded-3xl border border-border bg-card p-5">
+      <ol className="relative space-y-3 border-y border-border py-3">
         {log.map((l, i) => (
           <li key={i} className="flex items-center gap-3">
-            <span className={`grid size-10 shrink-0 place-items-center rounded-2xl ${l.c}`}><l.I className="size-4" /></span>
+            <span className={`grid size-10 shrink-0 place-items-center rounded-lg ${l.c}`}><l.I className="size-4" /></span>
             <div className="min-w-0 flex-1"><p className="font-semibold">{l.a} <span className="font-normal text-muted-foreground">· {l.t}</span></p></div>
             <span className="tabular shrink-0 text-xs text-muted-foreground">{l.d}</span>
           </li>
         ))}
       </ol>
 
-      <div className="mt-6 flex items-center gap-3 rounded-3xl bg-secondary/10 p-4 text-secondary">
+      <div className="mt-6 flex items-center gap-3 rounded-lg bg-secondary/10 p-4 text-secondary">
         <CheckCircle2 className="size-6 shrink-0" />
         <div><p className="font-semibold">اجتازت فحوص الاتساق والمراجعة</p><p className="text-xs opacity-80">أُعيد حساب كل رحلة وطابقت إجماليات الناقلين</p></div>
       </div>
