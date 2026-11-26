@@ -13,6 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ExtractsRouteImport } from './routes/extracts'
 import { Route as ReportsRouteImport } from './routes/reports'
 import { Route as ExtractsIdRouteImport } from './routes/extracts_.$id'
+import { Route as ReportsCarriersRouteImport } from './routes/reports_.carriers'
+import { Route as ReportsComprehensiveRouteImport } from './routes/reports_.comprehensive'
+import { Route as ReportsExtractsRouteImport } from './routes/reports_.extracts'
+import { Route as ReportsViolationsRouteImport } from './routes/reports_.violations'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +38,46 @@ const ExtractsIdRoute = ExtractsIdRouteImport.update({
   path: '/extracts/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReportsCarriersRoute = ReportsCarriersRouteImport.update({
+  id: '/reports_/carriers',
+  path: '/reports/carriers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsComprehensiveRoute = ReportsComprehensiveRouteImport.update({
+  id: '/reports_/comprehensive',
+  path: '/reports/comprehensive',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsExtractsRoute = ReportsExtractsRouteImport.update({
+  id: '/reports_/extracts',
+  path: '/reports/extracts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReportsViolationsRoute = ReportsViolationsRouteImport.update({
+  id: '/reports_/violations',
+  path: '/reports/violations',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/extracts': typeof ExtractsRoute
   '/reports': typeof ReportsRoute
   '/extracts/$id': typeof ExtractsIdRoute
+  '/reports/carriers': typeof ReportsCarriersRoute
+  '/reports/comprehensive': typeof ReportsComprehensiveRoute
+  '/reports/extracts': typeof ReportsExtractsRoute
+  '/reports/violations': typeof ReportsViolationsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/extracts': typeof ExtractsRoute
   '/reports': typeof ReportsRoute
   '/extracts/$id': typeof ExtractsIdRoute
+  '/reports/carriers': typeof ReportsCarriersRoute
+  '/reports/comprehensive': typeof ReportsComprehensiveRoute
+  '/reports/extracts': typeof ReportsExtractsRoute
+  '/reports/violations': typeof ReportsViolationsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +85,42 @@ export interface FileRoutesById {
   '/extracts': typeof ExtractsRoute
   '/reports': typeof ReportsRoute
   '/extracts_/$id': typeof ExtractsIdRoute
+  '/reports_/carriers': typeof ReportsCarriersRoute
+  '/reports_/comprehensive': typeof ReportsComprehensiveRoute
+  '/reports_/extracts': typeof ReportsExtractsRoute
+  '/reports_/violations': typeof ReportsViolationsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/extracts' | '/reports' | '/extracts/$id'
+  fullPaths:
+    | '/'
+    | '/extracts'
+    | '/reports'
+    | '/extracts/$id'
+    | '/reports/carriers'
+    | '/reports/comprehensive'
+    | '/reports/extracts'
+    | '/reports/violations'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/extracts' | '/reports' | '/extracts/$id'
-  id: '__root__' | '/' | '/extracts' | '/reports' | '/extracts_/$id'
+  to:
+    | '/'
+    | '/extracts'
+    | '/reports'
+    | '/extracts/$id'
+    | '/reports/carriers'
+    | '/reports/comprehensive'
+    | '/reports/extracts'
+    | '/reports/violations'
+  id:
+    | '__root__'
+    | '/'
+    | '/extracts'
+    | '/reports'
+    | '/extracts_/$id'
+    | '/reports_/carriers'
+    | '/reports_/comprehensive'
+    | '/reports_/extracts'
+    | '/reports_/violations'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +128,10 @@ export interface RootRouteChildren {
   ExtractsRoute: typeof ExtractsRoute
   ReportsRoute: typeof ReportsRoute
   ExtractsIdRoute: typeof ExtractsIdRoute
+  ReportsCarriersRoute: typeof ReportsCarriersRoute
+  ReportsComprehensiveRoute: typeof ReportsComprehensiveRoute
+  ReportsExtractsRoute: typeof ReportsExtractsRoute
+  ReportsViolationsRoute: typeof ReportsViolationsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +164,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExtractsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reports_/carriers': {
+      id: '/reports_/carriers'
+      path: '/reports/carriers'
+      fullPath: '/reports/carriers'
+      preLoaderRoute: typeof ReportsCarriersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports_/comprehensive': {
+      id: '/reports_/comprehensive'
+      path: '/reports/comprehensive'
+      fullPath: '/reports/comprehensive'
+      preLoaderRoute: typeof ReportsComprehensiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports_/extracts': {
+      id: '/reports_/extracts'
+      path: '/reports/extracts'
+      fullPath: '/reports/extracts'
+      preLoaderRoute: typeof ReportsExtractsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reports_/violations': {
+      id: '/reports_/violations'
+      path: '/reports/violations'
+      fullPath: '/reports/violations'
+      preLoaderRoute: typeof ReportsViolationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +200,10 @@ const rootRouteChildren: RootRouteChildren = {
   ExtractsRoute: ExtractsRoute,
   ReportsRoute: ReportsRoute,
   ExtractsIdRoute: ExtractsIdRoute,
+  ReportsCarriersRoute: ReportsCarriersRoute,
+  ReportsComprehensiveRoute: ReportsComprehensiveRoute,
+  ReportsExtractsRoute: ReportsExtractsRoute,
+  ReportsViolationsRoute: ReportsViolationsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

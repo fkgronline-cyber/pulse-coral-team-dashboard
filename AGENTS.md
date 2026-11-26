@@ -28,3 +28,6 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Keep `/reports` as the report directory and each report type in an un-nested leaf route, so the comprehensive report remains distinct from the other report views.
+- Share the presentation-only report layout across specialized report pages; label reference records as demo data until real data is connected.
