@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { TrendingUp, TrendingDown, Download, ShieldCheck } from "lucide-react";
+import { TrendingUp, TrendingDown, Download, ShieldCheck, Plus, Pencil, Trash2, RotateCcw, CheckCircle2 } from "lucide-react";
 import { AppShell, SectionTitle } from "@/components/AppShell";
 
 export const Route = createFileRoute("/reports")({
@@ -36,6 +36,14 @@ const extracts = [
   { n: "مستخلص رقم 5", d: "09/11", lines: 48, qty: "679", w: "2,345", v: "583,210" },
   { n: "مستخلص رقم 4", d: "09/11", lines: 34, qty: "469", w: "1,614", v: "412,880" },
   { n: "مستخلص رقم 6", d: "09/11", lines: 43, qty: "567", w: "2,780", v: "471,264" },
+];
+
+const log = [
+  { a: "تعديل", t: "ملف مخالفات", d: "23/11 · 19:28", I: Pencil, c: "bg-accent text-accent-foreground" },
+  { a: "تعديل", t: "مخالفة", d: "23/11 · 19:27", I: Pencil, c: "bg-accent text-accent-foreground" },
+  { a: "إضافة", t: "مخالفة", d: "23/11 · 19:22", I: Plus, c: "bg-secondary/15 text-secondary" },
+  { a: "استعادة", t: "ملف مخالفات", d: "23/11 · 13:00", I: RotateCcw, c: "bg-primary/15 text-accent-foreground" },
+  { a: "حذف", t: "ملف مخالفات", d: "23/11 · 13:00", I: Trash2, c: "bg-destructive/10 text-destructive" },
 ];
 
 function Reports() {
@@ -107,6 +115,22 @@ function Reports() {
           <span className="font-semibold">إجمالي الفترة</span>
           <span className="font-display tabular text-lg font-bold">2,612,146.80 ر.س</span>
         </div>
+      </div>
+
+      <SectionTitle title="سجل النشاط" hint="2 إضافة · 2 تعديل · 2 حذف · 1 استعادة" />
+      <ol className="relative space-y-3 rounded-3xl border border-border bg-card p-5">
+        {log.map((l, i) => (
+          <li key={i} className="flex items-center gap-3">
+            <span className={`grid size-10 shrink-0 place-items-center rounded-2xl ${l.c}`}><l.I className="size-4" /></span>
+            <div className="min-w-0 flex-1"><p className="font-semibold">{l.a} <span className="font-normal text-muted-foreground">· {l.t}</span></p></div>
+            <span className="tabular shrink-0 text-xs text-muted-foreground">{l.d}</span>
+          </li>
+        ))}
+      </ol>
+
+      <div className="mt-6 flex items-center gap-3 rounded-3xl bg-secondary/10 p-4 text-secondary">
+        <CheckCircle2 className="size-6 shrink-0" />
+        <div><p className="font-semibold">اجتازت فحوص الاتساق والمراجعة</p><p className="text-xs opacity-80">أُعيد حساب كل رحلة وطابقت إجماليات الناقلين</p></div>
       </div>
     </AppShell>
   );
