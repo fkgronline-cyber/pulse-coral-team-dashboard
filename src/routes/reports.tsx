@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { TrendingUp, TrendingDown, Download, ShieldCheck, Plus, Pencil, Trash2, RotateCcw, CheckCircle2, MoveHorizontal, Wallet } from "lucide-react";
+import { TrendingUp, TrendingDown, Download, ShieldCheck, Plus, Pencil, Trash2, RotateCcw, CheckCircle2, MoveHorizontal } from "lucide-react";
 import { AppShell, SectionTitle } from "@/components/AppShell";
 
 export const Route = createFileRoute("/reports")({
@@ -94,10 +94,6 @@ function Reports() {
       </div>
 
       <SectionTitle title="المستخلصات" hint="4 مستخلصات · 221 سطر" action={<button className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm font-semibold"><Download className="size-4" />PDF</button>} />
-      <div className="mb-3 flex items-center justify-between gap-3 rounded-2xl bg-accent px-4 py-3 text-accent-foreground">
-        <span className="flex items-center gap-2 text-sm font-semibold"><Wallet className="size-4" />إجمالي الفترة</span>
-        <span className="font-display tabular text-lg font-bold">2,612,146.80 <span className="text-xs font-normal opacity-80">ر.س</span></span>
-      </div>
       <div className="overflow-hidden rounded-3xl border border-border bg-card">
         <div className="flex items-center justify-center gap-2 border-b border-border bg-muted py-2 text-xs text-muted-foreground md:hidden">
           <MoveHorizontal className="size-4" />اسحب الجدول أفقياً لعرض كل الأعمدة
@@ -124,7 +120,7 @@ function Reports() {
             </tbody>
             <tfoot>
               <tr className="border-t border-border bg-accent font-bold text-accent-foreground">
-                <td className="sticky right-0 z-10 whitespace-nowrap border-l border-accent-foreground/15 bg-accent px-4 py-3">إجمالي الفترة</td>
+                <td className="sticky right-0 z-10 whitespace-nowrap border-l border-accent-foreground/15 bg-accent px-4 py-3"><span className="block text-xs font-semibold opacity-80">إجمالي الفترة</span><span className="tabular block">2,612,146.80 <span className="text-xs font-normal">ر.س</span></span></td>
                 <td className="px-4" colSpan={4} />
                 <td className="tabular whitespace-nowrap px-4">2,612,146.80 <span className="text-xs font-normal">ر.س</span></td>
               </tr>

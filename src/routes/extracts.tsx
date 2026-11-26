@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, FilePlus2, Boxes, ChevronLeft, MoveHorizontal, Wallet } from "lucide-react";
+import { Search, FilePlus2, Boxes, ChevronLeft, MoveHorizontal } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/extracts")({
@@ -56,14 +56,9 @@ function Extracts() {
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="ابحث باسم المستخلص أو الشركة" className="w-full bg-transparent outline-none placeholder:text-muted-foreground" />
       </label>
 
-      {/* الإجمالي ظاهر فوق الجدول، فلا يحتاج تمرير لآخر الصفحة */}
-      <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-accent px-4 py-3 text-accent-foreground">
-        <span className="flex items-center gap-2 text-sm font-semibold"><Wallet className="size-4" />الإجمالي {list.length > 0 && <span className="font-normal opacity-80">· {list.length} مستخلص</span>}</span>
-        <span className="font-display tabular text-lg font-bold">{total.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span className="text-xs font-normal opacity-80">ر.س</span></span>
-      </div>
 
       {/* جدول واحد لكل المقاسات: يُسحب أفقياً على الجوال */}
-      <div className="mt-3 overflow-hidden rounded-3xl border border-border bg-card">
+      <div className="mt-4 overflow-hidden rounded-3xl border border-border bg-card">
         <div className="flex items-center justify-center gap-2 border-b border-border bg-muted/60 py-2 text-xs text-muted-foreground md:hidden">
           <MoveHorizontal className="size-4" />اسحب الجدول أفقياً لعرض كل الأعمدة
         </div>
@@ -90,7 +85,7 @@ function Extracts() {
             </tbody>
             <tfoot>
               <tr className="border-t border-border bg-accent font-bold text-accent-foreground">
-                <td className="sticky right-0 z-10 whitespace-nowrap border-l border-accent-foreground/15 bg-accent px-4 py-3">الإجمالي</td>
+                <td className="sticky right-0 z-10 whitespace-nowrap border-l border-accent-foreground/15 bg-accent px-4 py-3"><span className="block text-xs font-semibold opacity-80">الإجمالي</span><span className="tabular block">{total.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span className="text-xs font-normal">ر.س</span></span></td>
                 <td className="px-4" />
                 <td className="tabular px-4">221</td>
                 <td className="tabular whitespace-nowrap px-4">11,357.16</td>
