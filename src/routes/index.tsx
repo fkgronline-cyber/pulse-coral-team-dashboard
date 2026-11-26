@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Plus, ArrowUpLeft, FileText, Truck, Boxes, Scale, ChevronLeft } from "lucide-react";
+import { Plus, ArrowUpLeft, FileText, Truck, Boxes, Scale, ChevronLeft, AlertTriangle, Upload, UserPlus } from "lucide-react";
 import { AppShell, SectionTitle } from "@/components/AppShell";
 
 export const Route = createFileRoute("/")({
@@ -59,7 +59,7 @@ function Home() {
       </article>
 
       <SectionTitle title="مؤشرات التشغيل" hint="محدّثة لحظة بلحظة" />
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {kpis.map(({ label, value, sub, Icon }, i) => (
           <div key={label} className="animate-rise rounded-3xl border border-border bg-card p-4" style={{ animationDelay: `${i * 60}ms` }}>
             <span className="grid size-9 place-items-center rounded-xl bg-accent text-accent-foreground"><Icon className="size-4" /></span>
@@ -68,6 +68,24 @@ function Home() {
             <p className="text-xs text-secondary">{sub}</p>
           </div>
         ))}
+      </div>
+
+      <div className="mt-4 grid gap-3 rounded-3xl border border-border bg-card p-5 sm:grid-cols-3">
+        <div><p className="text-xs text-muted-foreground">اتجاه العمل</p><p className="font-display text-lg font-bold">هذا الشهر مقارنة بالسابق</p></div>
+        <div className="rounded-2xl bg-muted p-3"><p className="text-xs text-muted-foreground">هذا الشهر</p><p className="font-display tabular text-xl font-bold">2.61M <span className="text-xs text-secondary">▲ 18%</span></p></div>
+        <div className="rounded-2xl bg-muted p-3"><p className="text-xs text-muted-foreground">الشهر السابق</p><p className="font-display tabular text-xl font-bold">2.21M</p></div>
+      </div>
+
+      <SectionTitle title="وصول سريع" hint="أهم الأدوات بنقرة" />
+      <div className="grid grid-cols-4 gap-3">
+        {[["مستخلص", Plus], ["ناقل جديد", UserPlus], ["رفع ملف", Upload], ["مخالفة", AlertTriangle]].map(([l, I]) => {
+          const Icon = I as typeof Plus;
+          return (
+            <button key={l as string} className="flex flex-col items-center gap-2 rounded-3xl border border-border bg-card py-4 text-xs font-semibold transition hover:-translate-y-0.5 hover:shadow-pop">
+              <span className="grid size-11 place-items-center rounded-2xl bg-sunrise text-primary-foreground"><Icon className="size-5" /></span>{l as string}
+            </button>
+          );
+        })}
       </div>
 
       <SectionTitle title="آخر المستخلصات" action={<a href="#" className="text-sm font-semibold text-accent-foreground">عرض الكل</a>} />
