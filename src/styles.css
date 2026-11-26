@@ -9,7 +9,7 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 14px);
-  --font-display: "Lalezar", "Bricolage Grotesque", sans-serif;
+  --font-display: "Readex Pro", sans-serif;
   --font-sans: "IBM Plex Sans Arabic", sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -34,26 +34,26 @@
 
 :root {
   --radius: 1rem;
-  --background: oklch(0.975 0.015 85);
-  --foreground: oklch(0.2 0.03 40);
+  --background: oklch(0.965 0.008 95);
+  --foreground: oklch(0.19 0.02 250);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.03 40);
-  --primary: oklch(0.68 0.2 35);
-  --primary-foreground: oklch(0.99 0.01 85);
-  --secondary: oklch(0.72 0.13 185);
-  --secondary-foreground: oklch(0.18 0.03 200);
-  --muted: oklch(0.93 0.02 80);
-  --muted-foreground: oklch(0.5 0.03 50);
-  --accent: oklch(0.88 0.12 90);
-  --accent-foreground: oklch(0.25 0.05 60);
-  --lime: oklch(0.9 0.19 125);
-  --ink: oklch(0.2 0.03 40);
-  --ink-foreground: oklch(0.97 0.015 85);
+  --card-foreground: oklch(0.19 0.02 250);
+  --primary: oklch(0.78 0.17 65);
+  --primary-foreground: oklch(0.19 0.02 250);
+  --secondary: oklch(0.62 0.12 165);
+  --secondary-foreground: oklch(0.99 0.01 95);
+  --muted: oklch(0.93 0.008 95);
+  --muted-foreground: oklch(0.5 0.02 250);
+  --accent: oklch(0.94 0.05 75);
+  --accent-foreground: oklch(0.4 0.1 55);
+  --lime: oklch(0.86 0.15 160);
+  --ink: oklch(0.2 0.025 250);
+  --ink-foreground: oklch(0.97 0.008 95);
   --destructive: oklch(0.6 0.22 25);
-  --border: oklch(0.89 0.02 75);
-  --input: oklch(0.89 0.02 75);
-  --ring: oklch(0.68 0.2 35);
-  --gradient-sunrise: linear-gradient(135deg, var(--primary), oklch(0.8 0.16 70));
+  --border: oklch(0.9 0.008 95);
+  --input: oklch(0.9 0.008 95);
+  --ring: oklch(0.78 0.17 65);
+  --gradient-sunrise: linear-gradient(135deg, oklch(0.82 0.16 75), oklch(0.7 0.19 45));
   --shadow-pop: 0 18px 40px -16px color-mix(in oklab, var(--primary) 55%, transparent);
 }
 
@@ -73,3 +73,10 @@
 @utility animate-float { animation: float-y 4s ease-in-out infinite; }
 @utility animate-grow { transform-origin: bottom; animation: grow-bar .9s cubic-bezier(.2,.9,.3,1.2) both; }
 @utility animate-rise { animation: rise .6s ease-out both; }
+
+@utility bg-road {
+  background-color: var(--ink);
+  background-image: radial-gradient(circle at 15% 0%, color-mix(in oklab, var(--primary) 35%, transparent), transparent 55%),
+    repeating-linear-gradient(90deg, color-mix(in oklab, var(--ink-foreground) 6%, transparent) 0 1px, transparent 1px 28px);
+}
+@utility tabular { font-variant-numeric: tabular-nums; }

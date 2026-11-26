@@ -1,133 +1,89 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { Plus, ArrowUpLeft, FileText, Truck, Boxes, Scale, ChevronLeft } from "lucide-react";
+import { AppShell, SectionTitle } from "@/components/AppShell";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "نبض — لوحة تحكم حيّة لفريقك" },
-      { name: "description", content: "واجهة لوحة تحكم نابضة بالحياة: إحصاءات، مهام، ونشاط الفريق لحظة بلحظة." },
-      { property: "og:title", content: "نبض — لوحة تحكم حيّة لفريقك" },
-      { property: "og:description", content: "واجهة لوحة تحكم نابضة بالحياة: إحصاءات، مهام، ونشاط الفريق." },
+      { title: "ناقل — نظرة عامة على أعمال النقل" },
+      { name: "description", content: "قيمة المستخلصات والرحلات والناقلين في لوحة واحدة واضحة." },
+      { property: "og:title", content: "ناقل — نظرة عامة على أعمال النقل" },
+      { property: "og:description", content: "قيمة المستخلصات والرحلات والناقلين في لوحة واحدة واضحة." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: Index,
+  component: Home,
 });
 
-const bars = [40, 65, 50, 85, 70, 95, 60];
-const days = ["سبت", "أحد", "اثنين", "ثلاثاء", "أربعاء", "خميس", "جمعة"];
-const initialTasks = [
-  { t: "مراجعة تصميم الصفحة الرئيسية", tag: "تصميم", done: true },
-  { t: "إطلاق حملة الشتاء", tag: "تسويق", done: false },
-  { t: "اجتماع مع فريق التطوير", tag: "فريق", done: false },
+const spark = [30, 42, 38, 55, 48, 70, 62, 85, 78, 96];
+const kpis = [
+  { label: "المستخلصات", value: "4", sub: "221 سطر رحلة", Icon: Boxes },
+  { label: "الرحلات", value: "219", sub: "+34 هذا الأسبوع", Icon: FileText },
+  { label: "الناقلون", value: "122", sub: "نشطون هذا الشهر", Icon: Truck },
+  { label: "الوزن", value: "11,357", sub: "طن منقول", Icon: Scale },
 ];
-const people = [
-  { n: "سارة", a: "أنهت مهمة «الهوية البصرية»", c: "bg-primary" },
-  { n: "خالد", a: "علّق على تقرير المبيعات", c: "bg-secondary" },
-  { n: "ليان", a: "أضافت 3 ملفات جديدة", c: "bg-accent" },
+const extracts = [
+  { name: "مستخلص ناقل", trips: 96, value: "1,144,792", status: "معتمد" },
+  { name: "مستخلص رقم 5", trips: 48, value: "583,210", status: "قيد المراجعة" },
+  { name: "مستخلص رقم 4", trips: 34, value: "412,880", status: "معتمد" },
 ];
 
-function Index() {
-  const [tasks, setTasks] = useState(initialTasks);
-  const [active, setActive] = useState(5);
-  const done = tasks.filter((x) => x.done).length;
-
+function Home() {
+  const max = Math.max(...spark);
   return (
-    <div className="min-h-screen pb-28">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-5 pt-6">
-        <div className="flex items-center gap-2">
-          <span className="relative grid size-10 place-items-center rounded-2xl bg-sunrise shadow-pop">
-            <span className="absolute size-3 rounded-full bg-primary-foreground animate-pulse-ring" />
-            <span className="size-3 rounded-full bg-primary-foreground" />
+    <AppShell title="نظرة عامة" active="الرئيسية">
+      <section className="animate-rise pt-6">
+        <p className="text-sm text-muted-foreground">الخميس، 26 نوفمبر</p>
+        <h1 className="font-display mt-1 text-3xl font-bold">أهلاً أبو ضياء 👋</h1>
+      </section>
+
+      <article className="animate-rise relative mt-5 overflow-hidden rounded-3xl bg-road p-6 text-ink-foreground">
+        <div className="flex items-center justify-between">
+          <span className="flex items-center gap-2 text-sm opacity-80">
+            <span className="relative flex size-2"><span className="absolute size-2 rounded-full bg-lime animate-pulse-ring" /><span className="size-2 rounded-full bg-lime" /></span>
+            قيمة المستخلصات · نوفمبر
           </span>
-          <span className="font-display text-3xl">نبض</span>
+          <span className="rounded-full bg-lime/15 px-2.5 py-1 text-xs font-semibold text-lime">▲ 18%</span>
         </div>
-        <div className="flex size-11 items-center justify-center rounded-full bg-ink font-bold text-ink-foreground">م</div>
-      </header>
-
-      <main className="mx-auto max-w-6xl px-5">
-        <section className="animate-rise mt-8">
-          <p className="text-muted-foreground">صباح الخير يا محمد ☀️</p>
-          <h1 className="font-display mt-1 text-5xl leading-tight md:text-6xl">
-            يومك <span className="text-primary">مليء</span> بالإنجاز
-          </h1>
-        </section>
-
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
-          <article className="animate-rise relative overflow-hidden rounded-3xl bg-sunrise p-6 text-primary-foreground shadow-pop md:col-span-2">
-            <div className="absolute -left-10 -top-10 size-40 rounded-full bg-lime/40 blur-2xl animate-float" />
-            <p className="relative opacity-90">الإيرادات هذا الأسبوع</p>
-            <p className="font-display relative mt-1 text-5xl">48,250 ر.س</p>
-            <span className="relative mt-2 inline-block rounded-full bg-ink px-3 py-1 text-sm text-lime">▲ 18% عن الأسبوع الماضي</span>
-            <div className="relative mt-6 flex h-32 items-end gap-2">
-              {bars.map((h, i) => (
-                <button key={i} onClick={() => setActive(i)} className="flex flex-1 flex-col items-center gap-2" aria-label={days[i]}>
-                  <span
-                    className={`animate-grow w-full rounded-xl transition-colors ${i === active ? "bg-ink" : "bg-primary-foreground/40"}`}
-                    style={{ height: `${h}%`, animationDelay: `${i * 70}ms` }}
-                  />
-                  <span className="text-[11px] opacity-90">{days[i]}</span>
-                </button>
-              ))}
-            </div>
-          </article>
-
-          <article className="animate-rise rounded-3xl bg-ink p-6 text-ink-foreground" style={{ animationDelay: "100ms" }}>
-            <p className="opacity-80">تقدّم المهام</p>
-            <div className="mt-4 flex items-center justify-center">
-              <div className="relative grid size-36 place-items-center rounded-full"
-                style={{ background: `conic-gradient(var(--lime) ${(done / tasks.length) * 360}deg, color-mix(in oklab, var(--ink-foreground) 15%, transparent) 0)` }}>
-                <div className="grid size-28 place-items-center rounded-full bg-ink">
-                  <span className="font-display text-4xl text-lime">{Math.round((done / tasks.length) * 100)}%</span>
-                </div>
-              </div>
-            </div>
-            <p className="mt-4 text-center text-sm opacity-80">{done} من {tasks.length} مهام مكتملة</p>
-          </article>
-
-          <article className="animate-rise rounded-3xl bg-card p-6 md:col-span-2" style={{ animationDelay: "200ms" }}>
-            <h2 className="font-display text-2xl">مهام اليوم</h2>
-            <ul className="mt-4 space-y-3">
-              {tasks.map((task, i) => (
-                <li key={i}>
-                  <button
-                    onClick={() => setTasks(tasks.map((x, j) => (j === i ? { ...x, done: !x.done } : x)))}
-                    className="flex w-full items-center gap-3 rounded-2xl bg-muted p-4 text-right transition hover:-translate-y-0.5"
-                  >
-                    <span className={`grid size-7 shrink-0 place-items-center rounded-full border-2 transition ${task.done ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground/40"}`}>
-                      {task.done ? "✓" : ""}
-                    </span>
-                    <span className={`flex-1 font-medium ${task.done ? "text-muted-foreground line-through" : ""}`}>{task.t}</span>
-                    <span className="rounded-full bg-accent px-3 py-1 text-xs text-accent-foreground">{task.tag}</span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </article>
-
-          <article className="animate-rise rounded-3xl bg-secondary p-6 text-secondary-foreground" style={{ animationDelay: "300ms" }}>
-            <h2 className="font-display text-2xl">نشاط الفريق</h2>
-            <ul className="mt-4 space-y-4">
-              {people.map((p) => (
-                <li key={p.n} className="flex items-center gap-3">
-                  <span className={`grid size-10 place-items-center rounded-full font-bold text-ink ${p.c}`}>{p.n[0]}</span>
-                  <div>
-                    <p className="font-semibold">{p.n}</p>
-                    <p className="text-sm opacity-80">{p.a}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </article>
+        <p dir="ltr" className="font-display tabular mt-3 text-right text-4xl font-bold">2,612,146<span className="text-xl opacity-60">.80 ر.س</span></p>
+        <svg viewBox="0 0 100 32" className="mt-4 h-16 w-full" preserveAspectRatio="none">
+          <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--primary)" stopOpacity=".5" /><stop offset="1" stopColor="var(--primary)" stopOpacity="0" /></linearGradient></defs>
+          <path d={`M0,32 ${spark.map((v, i) => `L${(i / (spark.length - 1)) * 100},${32 - (v / max) * 28}`).join(" ")} L100,32 Z`} fill="url(#g)" />
+          <path d={spark.map((v, i) => `${i ? "L" : "M"}${(i / (spark.length - 1)) * 100},${32 - (v / max) * 28}`).join(" ")} fill="none" stroke="var(--primary)" strokeWidth="1.2" vectorEffect="non-scaling-stroke" style={{ strokeWidth: 2.5 }} />
+        </svg>
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <button className="flex items-center justify-center gap-2 rounded-2xl bg-primary py-3 font-semibold text-primary-foreground transition active:scale-95"><Plus className="size-4" />مستخلص جديد</button>
+          <Link to="/reports" className="flex items-center justify-center gap-2 rounded-2xl bg-ink-foreground/10 py-3 font-semibold transition active:scale-95"><ArrowUpLeft className="size-4" />التقارير</Link>
         </div>
-      </main>
+      </article>
 
-      <nav className="fixed inset-x-0 bottom-4 mx-auto flex w-fit gap-1 rounded-full bg-ink p-2 text-ink-foreground shadow-pop">
-        {["الرئيسية", "المهام", "الفريق", "التقارير"].map((l, i) => (
-          <a key={l} href="#" className={`rounded-full px-4 py-2 text-sm ${i === 0 ? "bg-lime text-ink font-semibold" : "opacity-80"}`}>{l}</a>
+      <SectionTitle title="مؤشرات التشغيل" hint="محدّثة لحظة بلحظة" />
+      <div className="grid grid-cols-2 gap-3">
+        {kpis.map(({ label, value, sub, Icon }, i) => (
+          <div key={label} className="animate-rise rounded-3xl border border-border bg-card p-4" style={{ animationDelay: `${i * 60}ms` }}>
+            <span className="grid size-9 place-items-center rounded-xl bg-accent text-accent-foreground"><Icon className="size-4" /></span>
+            <p className="mt-3 text-sm text-muted-foreground">{label}</p>
+            <p className="font-display tabular text-2xl font-bold">{value}</p>
+            <p className="text-xs text-secondary">{sub}</p>
+          </div>
         ))}
-      </nav>
-    </div>
+      </div>
+
+      <SectionTitle title="آخر المستخلصات" action={<a href="#" className="text-sm font-semibold text-accent-foreground">عرض الكل</a>} />
+      <ul className="overflow-hidden rounded-3xl border border-border bg-card">
+        {extracts.map((e) => (
+          <li key={e.name} className="flex items-center gap-3 border-b border-border p-4 last:border-0">
+            <span className="grid size-11 place-items-center rounded-2xl bg-muted"><Boxes className="size-5" /></span>
+            <div className="flex-1">
+              <p className="font-semibold">{e.name}</p>
+              <p className="text-xs text-muted-foreground">{e.trips} رحلة · <span className={e.status === "معتمد" ? "text-secondary" : "text-accent-foreground"}>{e.status}</span></p>
+            </div>
+            <p className="font-display tabular font-bold">{e.value}<span className="text-xs text-muted-foreground"> ر.س</span></p>
+            <ChevronLeft className="size-4 text-muted-foreground" />
+          </li>
+        ))}
+      </ul>
+    </AppShell>
   );
 }
