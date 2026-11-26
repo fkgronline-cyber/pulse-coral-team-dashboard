@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, FilePlus2, Boxes, ChevronLeft, MoveHorizontal } from "lucide-react";
+import { Search, FilePlus2, Boxes, ChevronLeft, MoveHorizontal, Wallet } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/extracts")({
@@ -31,6 +31,7 @@ function Status({ s }: { s: string }) {
 function Extracts() {
   const [q, setQ] = useState("");
   const list = rows.filter((r) => r.n.includes(q));
+  const total = list.reduce((s, r) => s + Number(r.pre.replace(/,/g, "")), 0);
   return (
     <AppShell title="المستخلصات" active="المستخلصات">
       <section className="flex items-end justify-between gap-3 pt-6">
@@ -55,8 +56,14 @@ function Extracts() {
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="ابحث باسم المستخلص أو الشركة" className="w-full bg-transparent outline-none placeholder:text-muted-foreground" />
       </label>
 
+      {/* الإجمالي ظاهر فوق الجدول، فلا يحتاج تمرير لآخر الصفحة */}
+      <div className="mt-4 flex items-center justify-between gap-3 rounded-2xl bg-accent px-4 py-3 text-accent-foreground">
+        <span className="flex items-center gap-2 text-sm font-semibold"><Wallet className="size-4" />الإجمالي {list.length > 0 && <span className="font-normal opacity-80">· {list.length} مستخلص</span>}</span>
+        <span className="font-display tabular text-lg font-bold">{total.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span className="text-xs font-normal opacity-80">ر.س</span></span>
+      </div>
+
       {/* جدول واحد لكل المقاسات: يُسحب أفقياً على الجوال */}
-      <div className="mt-4 overflow-hidden rounded-3xl border border-border bg-card">
+      <div className="mt-3 overflow-hidden rounded-3xl border border-border bg-card">
         <div className="flex items-center justify-center gap-2 border-b border-border bg-muted/60 py-2 text-xs text-muted-foreground md:hidden">
           <MoveHorizontal className="size-4" />اسحب الجدول أفقياً لعرض كل الأعمدة
         </div>
