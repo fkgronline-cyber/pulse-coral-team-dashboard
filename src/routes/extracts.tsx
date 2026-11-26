@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Search, FilePlus2, Boxes, ChevronLeft, MoveHorizontal } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
@@ -71,13 +71,13 @@ function Extracts() {
             <tbody>
               {list.map((r) => (
                 <tr key={r.n} className="border-t border-border transition hover:bg-muted">
-                  <td className="sticky right-0 z-10 whitespace-nowrap border-l border-border bg-card px-4 py-4 font-semibold">{r.n}</td>
+                  <td className="sticky right-0 z-10 whitespace-nowrap border-l border-border bg-card px-4 py-4 font-semibold"><Link to="/extracts/$id" params={{ id: r.n }} className="text-primary underline-offset-4 hover:underline">{r.n}</Link></td>
                   <td className="tabular whitespace-nowrap px-4 text-muted-foreground">{r.d}</td>
                   <td className="tabular px-4">{r.lines}</td>
                   <td className="tabular whitespace-nowrap px-4">{r.w}</td>
                   <td className="tabular whitespace-nowrap px-4 font-semibold">{r.pre} <span className="text-xs text-muted-foreground">ر.س</span></td>
                   <td className="px-4"><Status s={r.status} /></td>
-                  <td className="px-4 text-muted-foreground"><ChevronLeft className="size-4" /></td>
+                  <td className="px-4 text-muted-foreground"><Link to="/extracts/$id" params={{ id: r.n }} aria-label={`عرض ${r.n}`}><ChevronLeft className="size-4" /></Link></td>
                 </tr>
               ))}
             </tbody>
