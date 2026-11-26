@@ -120,7 +120,7 @@ function Reports() {
             </tbody>
             <tfoot>
               <tr className="border-t border-border bg-accent font-bold text-accent-foreground">
-                <td className="sticky right-0 z-10 whitespace-nowrap border-l border-accent-foreground/15 bg-accent px-4 py-3"><span className="block text-xs font-semibold opacity-80">إجمالي الفترة</span><span className="tabular block">2,612,146.80 <span className="text-xs font-normal">ر.س</span></span></td>
+                <td className="sticky right-0 z-10 whitespace-nowrap border-l border-accent-foreground/15 bg-accent px-4 py-3">إجمالي الفترة</td>
                 <td className="px-4" colSpan={4} />
                 <td className="tabular whitespace-nowrap px-4">2,612,146.80 <span className="text-xs font-normal">ر.س</span></td>
               </tr>

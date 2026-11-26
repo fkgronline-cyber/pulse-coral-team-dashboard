@@ -31,7 +31,6 @@ function Status({ s }: { s: string }) {
 function Extracts() {
   const [q, setQ] = useState("");
   const list = rows.filter((r) => r.n.includes(q));
-  const total = list.reduce((s, r) => s + Number(r.pre.replace(/,/g, "")), 0);
   return (
     <AppShell title="المستخلصات" active="المستخلصات">
       <section className="flex items-end justify-between gap-3 pt-6">
@@ -55,7 +54,6 @@ function Extracts() {
         <Search className="size-5 text-muted-foreground" />
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="ابحث باسم المستخلص أو الشركة" className="w-full bg-transparent outline-none placeholder:text-muted-foreground" />
       </label>
-
 
       {/* جدول واحد لكل المقاسات: يُسحب أفقياً على الجوال */}
       <div className="mt-4 overflow-hidden rounded-3xl border border-border bg-card">
@@ -85,7 +83,7 @@ function Extracts() {
             </tbody>
             <tfoot>
               <tr className="border-t border-border bg-accent font-bold text-accent-foreground">
-                <td className="sticky right-0 z-10 whitespace-nowrap border-l border-accent-foreground/15 bg-accent px-4 py-3"><span className="block text-xs font-semibold opacity-80">الإجمالي</span><span className="tabular block">{total.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} <span className="text-xs font-normal">ر.س</span></span></td>
+                <td className="sticky right-0 z-10 whitespace-nowrap border-l border-accent-foreground/15 bg-accent px-4 py-3">الإجمالي</td>
                 <td className="px-4" />
                 <td className="tabular px-4">221</td>
                 <td className="tabular whitespace-nowrap px-4">11,357.16</td>
