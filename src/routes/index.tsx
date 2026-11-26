@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Plus, ArrowUpLeft, FileText, Truck, Boxes, Scale, ChevronLeft, AlertTriangle, Upload, UserPlus } from "lucide-react";
+import { Plus, ArrowUpLeft, FileText, Truck, Boxes, Scale, AlertTriangle, Upload, UserPlus, MoveHorizontal } from "lucide-react";
 import { AppShell, SectionTitle } from "@/components/AppShell";
 
 export const Route = createFileRoute("/")({
@@ -28,6 +28,10 @@ const extracts = [
   { name: "مستخلص رقم 5", trips: 48, value: "583,210", status: "قيد المراجعة" },
   { name: "مستخلص رقم 4", trips: 34, value: "412,880", status: "معتمد" },
 ];
+
+function Status({ s }: { s: string }) {
+  return <span className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold ${s === "معتمد" ? "bg-secondary/15 text-secondary" : "bg-accent text-accent-foreground"}`}>{s}</span>;
+}
 
 function Home() {
   const max = Math.max(...spark);
@@ -88,20 +92,35 @@ function Home() {
         })}
       </div>
 
-      <SectionTitle title="آخر المستخلصات" action={<a href="#" className="text-sm font-semibold text-accent-foreground">عرض الكل</a>} />
-      <ul className="overflow-hidden rounded-3xl border border-border bg-card">
-        {extracts.map((e) => (
-          <li key={e.name} className="flex items-center gap-3 border-b border-border p-4 last:border-0">
-            <span className="grid size-11 place-items-center rounded-2xl bg-muted"><Boxes className="size-5" /></span>
-            <div className="flex-1">
-              <p className="font-semibold">{e.name}</p>
-              <p className="text-xs text-muted-foreground">{e.trips} رحلة · <span className={e.status === "معتمد" ? "text-secondary" : "text-accent-foreground"}>{e.status}</span></p>
-            </div>
-            <p className="font-display tabular font-bold">{e.value}<span className="text-xs text-muted-foreground"> ر.س</span></p>
-            <ChevronLeft className="size-4 text-muted-foreground" />
-          </li>
-        ))}
-      </ul>
+      <SectionTitle title="آخر المستخلصات" action={<Link to="/extracts" className="text-sm font-semibold text-accent-foreground">عرض الكل</Link>} />
+      <div className="overflow-hidden rounded-3xl border border-border bg-card">
+        <div className="flex items-center justify-center gap-2 border-b border-border bg-muted/60 py-2 text-xs text-muted-foreground sm:hidden">
+          <MoveHorizontal className="size-4" />اسحب الجدول أفقياً
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[520px] text-sm">
+            <thead className="bg-muted text-xs text-muted-foreground">
+              <tr className="text-right">
+                <th className="sticky right-0 z-20 whitespace-nowrap border-l border-border bg-muted px-4 py-3 font-semibold">المستخلص</th>
+                {["الرحلات", "القيمة", "الحالة"].map((h) => <th key={h} className="whitespace-nowrap px-4 py-3 font-semibold">{h}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {extracts.map((e) => (
+                <tr key={e.name} className="border-t border-border transition hover:bg-muted">
+                  <td className="sticky right-0 z-10 flex items-center gap-3 border-l border-border bg-card px-4 py-4 font-semibold">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-muted"><Boxes className="size-4" /></span>
+                    <span className="whitespace-nowrap">{e.name}</span>
+                  </td>
+                  <td className="tabular px-4">{e.trips}</td>
+                  <td className="font-display tabular whitespace-nowrap px-4 font-bold">{e.value}<span className="font-sans text-xs font-normal text-muted-foreground"> ر.س</span></td>
+                  <td className="px-4"><Status s={e.status} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </AppShell>
   );
 }

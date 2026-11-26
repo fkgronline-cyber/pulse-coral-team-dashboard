@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search, FilePlus2, Boxes, ChevronLeft } from "lucide-react";
+import { Search, FilePlus2, Boxes, ChevronLeft, MoveHorizontal } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 
 export const Route = createFileRoute("/extracts")({
@@ -25,7 +25,7 @@ const rows = [
 ];
 
 function Status({ s }: { s: string }) {
-  return <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${s === "معتمد" ? "bg-secondary/15 text-secondary" : "bg-accent text-accent-foreground"}`}>{s}</span>;
+  return <span className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold ${s === "معتمد" ? "bg-secondary/15 text-secondary" : "bg-accent text-accent-foreground"}`}>{s}</span>;
 }
 
 function Extracts() {
@@ -55,58 +55,44 @@ function Extracts() {
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="ابحث باسم المستخلص أو الشركة" className="w-full bg-transparent outline-none placeholder:text-muted-foreground" />
       </label>
 
-      {/* الجوال: بطاقات بدل الجدول */}
-      <ul className="mt-4 space-y-3 md:hidden">
-        {list.map((r) => (
-          <li key={r.n} className="rounded-3xl border border-border bg-card p-4">
-            <div className="flex items-center gap-3">
-              <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-sunrise text-primary-foreground"><Boxes className="size-5" /></span>
-              <div className="min-w-0 flex-1">
-                <p className="truncate font-semibold">{r.n}</p>
-                <p className="text-xs text-muted-foreground">إقفال حتى {r.d}</p>
-              </div>
-              <Status s={r.status} />
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-2 text-center">
-              {[["السطور", r.lines], ["الوزن", r.w], ["قبل الضريبة", r.pre]].map(([k, v]) => (
-                <div key={k} className="rounded-xl bg-muted py-2">
-                  <p className="text-[11px] text-muted-foreground">{k}</p>
-                  <p className="tabular text-sm font-semibold">{v}</p>
-                </div>
-              ))}
-            </div>
-          </li>
-        ))}
-      </ul>
-
-      {/* الكمبيوتر: جدول كامل */}
-      <div className="mt-4 hidden overflow-hidden rounded-3xl border border-border bg-card md:block">
-        <table className="w-full text-sm">
-          <thead className="bg-banner text-primary-foreground">
-            <tr className="text-right">
-              {["اسم المستخلص", "تاريخ الإقفال", "السطور", "الوزن (طن)", "قبل الضريبة", "الحالة", ""].map((h) => <th key={h} className="px-4 py-3 font-semibold">{h}</th>)}
-            </tr>
-          </thead>
-          <tbody>
-            {list.map((r) => (
-              <tr key={r.n} className="border-t border-border transition hover:bg-muted">
-                <td className="px-4 py-4 font-semibold">{r.n}</td>
-                <td className="tabular px-4 text-muted-foreground">{r.d}</td>
-                <td className="tabular px-4">{r.lines}</td>
-                <td className="tabular px-4">{r.w}</td>
-                <td className="tabular px-4 font-semibold">{r.pre} <span className="text-xs text-muted-foreground">ر.س</span></td>
-                <td className="px-4"><Status s={r.status} /></td>
-                <td className="px-4 text-muted-foreground"><ChevronLeft className="size-4" /></td>
+      {/* جدول واحد لكل المقاسات: يُسحب أفقياً على الجوال */}
+      <div className="mt-4 overflow-hidden rounded-3xl border border-border bg-card">
+        <div className="flex items-center justify-center gap-2 border-b border-border bg-muted/60 py-2 text-xs text-muted-foreground md:hidden">
+          <MoveHorizontal className="size-4" />اسحب الجدول أفقياً لعرض كل الأعمدة
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[680px] text-sm">
+            <thead className="bg-banner text-primary-foreground">
+              <tr className="text-right">
+                <th className="sticky right-0 z-20 whitespace-nowrap border-l border-primary-foreground/20 bg-banner-solid px-4 py-3 font-semibold">اسم المستخلص</th>
+                {["تاريخ الإقفال", "السطور", "الوزن (طن)", "قبل الضريبة", "الحالة", ""].map((h) => <th key={h} className="whitespace-nowrap px-4 py-3 font-semibold">{h}</th>)}
               </tr>
-            ))}
-          </tbody>
-          <tfoot>
-            <tr className="border-t border-border bg-accent font-bold text-accent-foreground">
-              <td className="px-4 py-3" colSpan={2}>الإجمالي</td>
-              <td className="tabular px-4">221</td><td className="tabular px-4">11,357.16</td><td className="tabular px-4" colSpan={3}>2,271,432.00 ر.س</td>
-            </tr>
-          </tfoot>
-        </table>
+            </thead>
+            <tbody>
+              {list.map((r) => (
+                <tr key={r.n} className="border-t border-border transition hover:bg-muted">
+                  <td className="sticky right-0 z-10 whitespace-nowrap border-l border-border bg-card px-4 py-4 font-semibold">{r.n}</td>
+                  <td className="tabular whitespace-nowrap px-4 text-muted-foreground">{r.d}</td>
+                  <td className="tabular px-4">{r.lines}</td>
+                  <td className="tabular whitespace-nowrap px-4">{r.w}</td>
+                  <td className="tabular whitespace-nowrap px-4 font-semibold">{r.pre} <span className="text-xs text-muted-foreground">ر.س</span></td>
+                  <td className="px-4"><Status s={r.status} /></td>
+                  <td className="px-4 text-muted-foreground"><ChevronLeft className="size-4" /></td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr className="border-t border-border bg-accent font-bold text-accent-foreground">
+                <td className="sticky right-0 z-10 whitespace-nowrap border-l border-accent-foreground/15 bg-accent px-4 py-3">الإجمالي</td>
+                <td className="px-4" />
+                <td className="tabular px-4">221</td>
+                <td className="tabular whitespace-nowrap px-4">11,357.16</td>
+                <td className="tabular whitespace-nowrap px-4">2,271,432.00 <span className="text-xs font-normal">ر.س</span></td>
+                <td className="px-4" colSpan={2} />
+              </tr>
+            </tfoot>
+          </table>
+        </div>
       </div>
       {list.length === 0 && <p className="mt-8 text-center text-muted-foreground">لا توجد نتائج مطابقة</p>}
     </AppShell>

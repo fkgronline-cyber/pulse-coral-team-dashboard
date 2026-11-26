@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { TrendingUp, TrendingDown, Download, ShieldCheck, Plus, Pencil, Trash2, RotateCcw, CheckCircle2 } from "lucide-react";
+import { TrendingUp, TrendingDown, Download, ShieldCheck, Plus, Pencil, Trash2, RotateCcw, CheckCircle2, MoveHorizontal } from "lucide-react";
 import { AppShell, SectionTitle } from "@/components/AppShell";
 
 export const Route = createFileRoute("/reports")({
@@ -94,26 +94,38 @@ function Reports() {
       </div>
 
       <SectionTitle title="المستخلصات" hint="4 مستخلصات · 221 سطر" action={<button className="flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-sm font-semibold"><Download className="size-4" />PDF</button>} />
-      <div className="space-y-3">
-        {extracts.map((e) => (
-          <article key={e.n} className="rounded-3xl border border-border bg-card p-4">
-            <div className="flex items-center justify-between">
-              <p className="font-semibold">{e.n}</p>
-              <p className="font-display tabular font-bold">{e.v} <span className="text-xs text-muted-foreground">ر.س</span></p>
-            </div>
-            <div className="mt-3 grid grid-cols-4 gap-2 text-center">
-              {[["التاريخ", e.d], ["السطور", e.lines], ["الكمية", e.qty], ["الوزن", e.w]].map(([k, v]) => (
-                <div key={k} className="rounded-xl bg-muted py-2">
-                  <p className="text-[11px] text-muted-foreground">{k}</p>
-                  <p className="tabular text-sm font-semibold">{v}</p>
-                </div>
+      <div className="overflow-hidden rounded-3xl border border-border bg-card">
+        <div className="flex items-center justify-center gap-2 border-b border-border bg-muted py-2 text-xs text-muted-foreground md:hidden">
+          <MoveHorizontal className="size-4" />اسحب الجدول أفقياً لعرض كل الأعمدة
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px] text-sm">
+            <thead className="bg-banner text-primary-foreground">
+              <tr className="text-right">
+                <th className="sticky right-0 z-20 whitespace-nowrap border-l border-primary-foreground/20 bg-banner-solid px-4 py-3 font-semibold">المستخلص</th>
+                {["التاريخ", "السطور", "الكمية", "الوزن (طن)", "القيمة"].map((h) => <th key={h} className="whitespace-nowrap px-4 py-3 font-semibold">{h}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {extracts.map((e) => (
+                <tr key={e.n} className="border-t border-border transition hover:bg-muted">
+                  <td className="sticky right-0 z-10 whitespace-nowrap border-l border-border bg-card px-4 py-4 font-semibold">{e.n}</td>
+                  <td className="tabular whitespace-nowrap px-4 text-muted-foreground">{e.d}</td>
+                  <td className="tabular px-4">{e.lines}</td>
+                  <td className="tabular px-4">{e.qty}</td>
+                  <td className="tabular px-4">{e.w}</td>
+                  <td className="tabular whitespace-nowrap px-4 font-semibold">{e.v} <span className="text-xs font-normal text-muted-foreground">ر.س</span></td>
+                </tr>
               ))}
-            </div>
-          </article>
-        ))}
-        <div className="flex items-center justify-between rounded-3xl bg-accent p-4 text-accent-foreground">
-          <span className="font-semibold">إجمالي الفترة</span>
-          <span className="font-display tabular text-lg font-bold">2,612,146.80 ر.س</span>
+            </tbody>
+            <tfoot>
+              <tr className="border-t border-border bg-accent font-bold text-accent-foreground">
+                <td className="sticky right-0 z-10 whitespace-nowrap border-l border-accent-foreground/15 bg-accent px-4 py-3">إجمالي الفترة</td>
+                <td className="px-4" colSpan={4} />
+                <td className="tabular whitespace-nowrap px-4">2,612,146.80 <span className="text-xs font-normal">ر.س</span></td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
       </div>
 
