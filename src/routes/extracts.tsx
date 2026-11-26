@@ -87,7 +87,7 @@ function Extracts() {
                 <td className="px-4" />
                 <td className="tabular px-4">221</td>
                 <td className="tabular whitespace-nowrap px-4">11,357.16</td>
-                <td className="tabular whitespace-nowrap px-4">2,271,432.00 <span className="text-xs font-normal">ر.س</span></td>
+                <td className="tabular whitespace-nowrap sticky left-0 z-10 border-r border-accent-foreground/15 bg-accent px-4">2,271,432.00 <span className="text-xs font-normal">ر.س</span></td>
                 <td className="px-4" colSpan={2} />
               </tr>
             </tfoot>
