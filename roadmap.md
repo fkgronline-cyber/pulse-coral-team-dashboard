@@ -7,3 +7,4 @@
 - [x] Stabilize extract table rendering without changing scrolling or fixed totals.
 - [x] Compact report cards and improve text contrast, spacing, and shared page styling.
 - [x] Verify mobile and desktop navigation, table scrolling, and report search.
+- [x] Finish the paused review of the top banner, home-page buttons, and quick-access styling; verify and save the current design.
